@@ -1,15 +1,11 @@
 package com.scotiabankcolpatria.hiring;
 
-import java.util.Arrays;
 
 public class CreditRiskAssessment {
 
     public double standardDeviation(int[] paymentDelays) {
-        //TODO implement.
-        final float averageData = calculateAverage(paymentDelays);
-        System.out.println("Promedio ( " + averageData + " ) ");
+        final double averageData = calculateAverage(paymentDelays);
         final double varianceData = calculateVariance(averageData, paymentDelays);
-        System.out.println("Varianza ( " + varianceData + " ) ");
         return calculateRoot(varianceData);
     }
 
@@ -24,12 +20,11 @@ public class CreditRiskAssessment {
     }
 
 
-    private float calculateAverage(int[] paymentDelays){
-        int sumInputData = 0;
-        for (int index:paymentDelays){
+    private double calculateAverage(int[] paymentDelays){
+        double sumInputData = 0;
+        for (int index:paymentDelays) {
             sumInputData = sumInputData + index;
         }
-        System.out.println("Suma: ( " + sumInputData + " ) ");
         return sumInputData / paymentDelays.length;
     }
 
@@ -52,7 +47,7 @@ public class CreditRiskAssessment {
 
     public static void main(String[] args){
         CreditRiskAssessment riskAssessment = new CreditRiskAssessment();
-        double standardDeviation = riskAssessment.standardDeviation(new int[]{0, 15, 2, 0, 1, 3});
+        double standardDeviation = riskAssessment.standardDeviation(new int[]{-5, 1, 8, 7, 2});
         System.out.println("Desviación estándar: ( " + standardDeviation + " ) ");
     }
 
