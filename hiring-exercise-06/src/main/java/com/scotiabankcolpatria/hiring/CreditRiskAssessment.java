@@ -6,12 +6,27 @@ import java.util.List;
 
 public class CreditRiskAssessment {
 
+    /**
+     * Fecha: 09/29/2021
+     * Calcula la desviación estándar.
+     * @author Santiago Vélez Pulgarin
+     * @param paymentDelays
+     * @return double
+     **/
     public double standardDeviation(int[] paymentDelays) {
         final double averageData = calculateAverage(paymentDelays);
         final double varianceData = calculateVariance(averageData, paymentDelays);
-        return calculateRoot(varianceData);
+        final double rootData = calculateRoot(varianceData);
+        return rootData;
     }
 
+    /**
+     * Fecha: 09/29/2021
+     * Calcula la anomalía con el pico más alto.
+     * @author Santiago Vélez Pulgarin
+     * @param paymentDelays
+     * @return int
+     **/
     public int paymentDelayMaxPeakIndex(int[] paymentDelays) {
         final int inputDataSize = paymentDelays.length;
         int highestPeakValue = paymentDelays[0];
@@ -25,15 +40,25 @@ public class CreditRiskAssessment {
         return highestPeakIndex;
     }
 
+    /**
+     * Fecha: 09/29/2021
+     * Realiza el cálculo de probabilidad de pago tardío.
+     * @author Santiago Vélez Pulgarin
+     * @param paymentDelays
+     * @return double[]
+     **/
     public double[] latePaymentProbabilityByPeriod(int[][] paymentDelays) {
         final List<Double> finalData = calculateProbabilityOfLateLayment(paymentDelays);
         return convertListToVector(finalData);
     }
 
-    private double[] convertListToVector(List<Double> finalData){
-        return finalData.stream().mapToDouble(i -> i).toArray();
-    }
-
+    /**
+     * Fecha: 09/29/2021
+     * Calcula el promedio del vector enviado por parametro.
+     * @author Santiago Vélez Pulgarin
+     * @param paymentDelays
+     * @return double
+     **/
     private double calculateAverage(int[] paymentDelays){
         double sumInputData = 0;
         for (int index:paymentDelays) {
@@ -42,6 +67,14 @@ public class CreditRiskAssessment {
         return sumInputData / paymentDelays.length;
     }
 
+    /**
+     * Fecha: 09/29/2021
+     * Calcula el valor de la varianza del vector enviado por parametro.
+     * @author Santiago Vélez Pulgarin
+     * @param average
+     * @param paymentDelays
+     * @return double
+     **/
     private double calculateVariance(double average, int[] paymentDelays){
         double totalSumVariance = 0;
         for (int index:paymentDelays){
@@ -54,10 +87,24 @@ public class CreditRiskAssessment {
         return  totalSumVariance/paymentDelays.length;
     }
 
+    /**
+     * Fecha: 09/29/2021
+     * Calcula el valor de la raiz de la varianza enviada por parametro.
+     * @author Santiago Vélez Pulgarin
+     * @param variance
+     * @return double
+     **/
     private double calculateRoot(double variance){
         return Math.sqrt(variance);
     }
 
+    /**
+     * Fecha: 09/29/2021
+     * Calcula la probabilidad de pago tardío.
+     * @author Santiago Vélez Pulgarin
+     * @param paymentDelays
+     * @return List<Double>
+     **/
     private List<Double> calculateProbabilityOfLateLayment(int[][] paymentDelays){
         final int rowSize = paymentDelays.length;
         final int columnSize = paymentDelays[0].length;
@@ -69,8 +116,8 @@ public class CreditRiskAssessment {
                     latePaymentsAmount++;
                 }
                 if(rowIndex == (rowSize - 1)){
-                    double dato = (double) latePaymentsAmount/rowSize;
-                    finalData.add(dato);
+                    double calculateLatePayment = (double) latePaymentsAmount/rowSize;
+                    finalData.add(calculateLatePayment);
                     latePaymentsAmount = 0;
                 }
             }
@@ -78,17 +125,32 @@ public class CreditRiskAssessment {
         return finalData;
     }
 
+    /**
+     * Fecha: 09/29/2021
+     * transforma una lista a vector
+     * @author Santiago Vélez Pulgarin
+     * @param finalData
+     * @return double[]
+     **/
+    private double[] convertListToVector(List<Double> finalData){
+        return finalData.stream().mapToDouble(i -> i).toArray();
+    }
+
     public static void main(String[] args){
         CreditRiskAssessment riskAssessment = new CreditRiskAssessment();
-        //double standardDeviation = riskAssessment.standardDeviation(new int[]{-5, 1, 8, 7, 2});
-        //int mayor = riskAssessment.paymentDelayMaxPeakIndex(new int[]{-5, 1, 8, 31, 7, 2});
-        double[] standardDeviation = riskAssessment.latePaymentProbabilityByPeriod(new int[][]{
+        double standardDeviation = riskAssessment.standardDeviation(new int[]{-5, 1, 8, 7, 2});
+        int mayor = riskAssessment.paymentDelayMaxPeakIndex(new int[]{-5, 1, 8, 31, 7, 2});
+
+
+        double[] calculate = riskAssessment.latePaymentProbabilityByPeriod(new int[][]{
                 {0, 3, 6, 1, 0, 5, 0, 0},
                 {0, 3, 0, 2, 0, 0, 0, 2},
                 {0, 0, 1, 0, 3, 0, 2, 0},
                 {0, 4, 0, 2, 0, 1, 1, 0}
         });
-        Arrays.stream(standardDeviation).forEach(x->{System.out.print(" " + x);});
+        System.out.println(standardDeviation);
+        System.out.println(mayor);
+        Arrays.stream(calculate).forEach(x->{System.out.print(" " + x);});
     }
 
 }
