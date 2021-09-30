@@ -1,6 +1,5 @@
 package com.scotiabankcolpatria.hiring;
 
-
 public class CreditRiskAssessment {
 
     public double standardDeviation(int[] paymentDelays) {
@@ -10,8 +9,16 @@ public class CreditRiskAssessment {
     }
 
     public int paymentDelayMaxPeakIndex(int[] paymentDelays) {
-        //TODO implement.
-        return -1;
+        final int inputDataSize = paymentDelays.length;
+        int highestPeakValue = paymentDelays[0];
+        int highestPeakIndex = 0;
+        for(int index = 0; index < inputDataSize; index++){
+            if(paymentDelays[index] > highestPeakValue){
+                highestPeakValue = paymentDelays[index];
+                highestPeakIndex = index;
+            }
+        }
+        return highestPeakIndex;
     }
 
     public double[] latePaymentProbabilityByPeriod(int[][] paymentDelays) {
@@ -47,8 +54,9 @@ public class CreditRiskAssessment {
 
     public static void main(String[] args){
         CreditRiskAssessment riskAssessment = new CreditRiskAssessment();
-        double standardDeviation = riskAssessment.standardDeviation(new int[]{-5, 1, 8, 7, 2});
-        System.out.println("Desviación estándar: ( " + standardDeviation + " ) ");
+        //double standardDeviation = riskAssessment.standardDeviation(new int[]{-5, 1, 8, 7, 2});
+        int mayor = riskAssessment.paymentDelayMaxPeakIndex(new int[]{-5, 1, 8, 31, 7, 2});
+        System.out.println("Mayor: ( " + mayor + " ) ");
     }
 
 }
