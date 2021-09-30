@@ -1,7 +1,6 @@
 package com.scotiabankcolpatria.hiring;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CreditRiskAssessment {
@@ -10,7 +9,7 @@ public class CreditRiskAssessment {
      * Fecha: 09/29/2021
      * Calcula la desviación estándar.
      * @author Santiago Vélez Pulgarin
-     * @param paymentDelays vector de datos
+     * @param paymentDelays Vector de datos
      * @return double
      **/
     public double standardDeviation(int[] paymentDelays) {
@@ -24,7 +23,7 @@ public class CreditRiskAssessment {
      * Fecha: 09/29/2021
      * Calcula la anomalía con el pico más alto.
      * @author Santiago Vélez Pulgarin
-     * @param paymentDelays vector de datos
+     * @param paymentDelays Vector de datos
      * @return int
      **/
     public int paymentDelayMaxPeakIndex(int[] paymentDelays) {
@@ -60,7 +59,7 @@ public class CreditRiskAssessment {
      * Fecha: 09/29/2021
      * Realiza el cálculo de probabilidad de pago tardío.
      * @author Santiago Vélez Pulgarin
-     * @param paymentDelays vector de datos
+     * @param paymentDelays Vector de datos
      * @return double[]
      **/
     public double[] latePaymentProbabilityByPeriod(int[][] paymentDelays) {
@@ -72,7 +71,7 @@ public class CreditRiskAssessment {
      * Fecha: 09/29/2021
      * Calcula el promedio del vector enviado por parametro.
      * @author Santiago Vélez Pulgarin
-     * @param paymentDelays
+     * @param paymentDelays Vector de datos
      * @return double
      **/
     private double calculateAverage(int[] paymentDelays){
@@ -87,8 +86,8 @@ public class CreditRiskAssessment {
      * Fecha: 09/29/2021
      * Calcula el valor de la varianza del vector enviado por parametro.
      * @author Santiago Vélez Pulgarin
-     * @param average
-     * @param paymentDelays
+     * @param average Promedio de datos
+     * @param paymentDelays Vector de datos
      * @return double
      **/
     private double calculateVariance(double average, int[] paymentDelays){
@@ -107,7 +106,7 @@ public class CreditRiskAssessment {
      * Fecha: 09/29/2021
      * Calcula el valor de la raiz de la varianza enviada por parametro.
      * @author Santiago Vélez Pulgarin
-     * @param variance
+     * @param variance valor de Varianza
      * @return double
      **/
     private double calculateRoot(double variance){
@@ -118,7 +117,7 @@ public class CreditRiskAssessment {
      * Fecha: 09/29/2021
      * Calcula la probabilidad de pago tardío.
      * @author Santiago Vélez Pulgarin
-     * @param paymentDelays
+     * @param paymentDelays Arreglo de datos
      * @return List<Double>
      **/
     private List<Double> calculateProbabilityOfLateLayment(int[][] paymentDelays){
@@ -145,28 +144,10 @@ public class CreditRiskAssessment {
      * Fecha: 09/29/2021
      * transforma una lista a vector
      * @author Santiago Vélez Pulgarin
-     * @param finalData
+     * @param finalData Lista de datos
      * @return double[]
      **/
     private double[] convertListToVector(List<Double> finalData){
         return finalData.stream().mapToDouble(i -> i).toArray();
     }
-
-    public static void main(String[] args){
-        CreditRiskAssessment riskAssessment = new CreditRiskAssessment();
-        double standardDeviation = riskAssessment.standardDeviation(new int[]{-5, 1, 8, 7, 2});
-        int mayor = riskAssessment.paymentDelayMaxPeakIndex(new int[]{0, 1, 1, 1, 0, 0, 0, 0});
-
-
-        double[] calculate = riskAssessment.latePaymentProbabilityByPeriod(new int[][]{
-                {0, 3, 6, 1, 0, 5, 0, 0},
-                {0, 3, 0, 2, 0, 0, 0, 2},
-                {0, 0, 1, 0, 3, 0, 2, 0},
-                {0, 4, 0, 2, 0, 1, 1, 0}
-        });
-        //System.out.println(standardDeviation);
-        System.out.println("ANOMALIA: (" + mayor + ") ");
-        //Arrays.stream(calculate).forEach(x->{System.out.print(" " + x);});
-    }
-
 }
