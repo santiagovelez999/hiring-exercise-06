@@ -28,16 +28,32 @@ public class CreditRiskAssessment {
      * @return int
      **/
     public int paymentDelayMaxPeakIndex(int[] paymentDelays) {
-        final int inputDataSize = paymentDelays.length;
-        int highestPeakValue = paymentDelays[0];
-        int highestPeakIndex = 0;
-        for(int index = 0; index < inputDataSize; index++){
-            if(paymentDelays[index] > highestPeakValue){
-                highestPeakValue = paymentDelays[index];
-                highestPeakIndex = index;
+        int sizeData = paymentDelays.length;
+        int anomalyPosition = -1;
+        for (int currentIndex = 0; currentIndex < sizeData; currentIndex++){
+            boolean endOfVector = ((sizeData - 1) == currentIndex);
+            int currentValue = paymentDelays[currentIndex];
+            int nextValue = !endOfVector?paymentDelays[currentIndex + 1]:0;
+            if(currentIndex == 0){
+                if(currentValue > nextValue){
+                    anomalyPosition = currentIndex;
+                }
+            }else{
+                int previousValue = paymentDelays[currentIndex - 1];
+                if(endOfVector){
+                    if((currentValue > previousValue) &&
+                            (currentValue > 0)){
+                        anomalyPosition = currentIndex;
+                    }
+                }else {
+                    if ((currentValue > previousValue) &&
+                            (currentValue > nextValue)) {
+                        anomalyPosition = currentIndex;
+                    }
+                }
             }
         }
-        return highestPeakIndex;
+        return anomalyPosition;
     }
 
     /**
@@ -139,7 +155,7 @@ public class CreditRiskAssessment {
     public static void main(String[] args){
         CreditRiskAssessment riskAssessment = new CreditRiskAssessment();
         double standardDeviation = riskAssessment.standardDeviation(new int[]{-5, 1, 8, 7, 2});
-        int mayor = riskAssessment.paymentDelayMaxPeakIndex(new int[]{-5, 1, 8, 31, 7, 2});
+        int mayor = riskAssessment.paymentDelayMaxPeakIndex(new int[]{0, 1, 1, 1, 0, 0, 0, 0});
 
 
         double[] calculate = riskAssessment.latePaymentProbabilityByPeriod(new int[][]{
@@ -148,9 +164,9 @@ public class CreditRiskAssessment {
                 {0, 0, 1, 0, 3, 0, 2, 0},
                 {0, 4, 0, 2, 0, 1, 1, 0}
         });
-        System.out.println(standardDeviation);
-        System.out.println(mayor);
-        Arrays.stream(calculate).forEach(x->{System.out.print(" " + x);});
+        //System.out.println(standardDeviation);
+        System.out.println("ANOMALIA: (" + mayor + ") ");
+        //Arrays.stream(calculate).forEach(x->{System.out.print(" " + x);});
     }
 
 }
