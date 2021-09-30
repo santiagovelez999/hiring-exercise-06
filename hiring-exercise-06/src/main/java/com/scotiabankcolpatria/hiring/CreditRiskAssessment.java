@@ -10,7 +10,7 @@ public class CreditRiskAssessment {
      * Fecha: 09/29/2021
      * Calcula la desviación estándar.
      * @author Santiago Vélez Pulgarin
-     * @param paymentDelays
+     * @param paymentDelays vector de datos
      * @return double
      **/
     public double standardDeviation(int[] paymentDelays) {
@@ -24,7 +24,7 @@ public class CreditRiskAssessment {
      * Fecha: 09/29/2021
      * Calcula la anomalía con el pico más alto.
      * @author Santiago Vélez Pulgarin
-     * @param paymentDelays
+     * @param paymentDelays vector de datos
      * @return int
      **/
     public int paymentDelayMaxPeakIndex(int[] paymentDelays) {
@@ -60,7 +60,7 @@ public class CreditRiskAssessment {
      * Fecha: 09/29/2021
      * Realiza el cálculo de probabilidad de pago tardío.
      * @author Santiago Vélez Pulgarin
-     * @param paymentDelays
+     * @param paymentDelays vector de datos
      * @return double[]
      **/
     public double[] latePaymentProbabilityByPeriod(int[][] paymentDelays) {

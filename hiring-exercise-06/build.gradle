@@ -27,3 +27,21 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+javadoc {
+    options.charSet = 'UTF-8'
+    options.encoding = 'UTF-8'
+    options.stylesheetFile = new File('src/main/resources/javadocStyles.css')
+    options.footer = "Ejercicio realizado por - Santiago Vélez Pulgarin"
+    options.bottom = "Ejercicio realizado por - Santiago Vélez Pulgarin"
+}
+
+task javadocZip(type: Zip) {
+    dependsOn javadoc
+    classifier 'javadoc'
+    from 'build/docs/javadoc/'
+}
+
+artifacts {
+    archives javadocZip
+}
